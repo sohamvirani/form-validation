@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p style="font-size: larger;">enter your name :- <input id="userName" type="text" placeholder="Enter Your Name"> </p><br>
+    <p style="font-size: larger;">enter your address :- <input id="address" type="text" placeholder="Enter Your Address"></p><br>
+    <p style="font-size: larger;">enter your age :- <input id="age" type="number" placeholder="Enter Your Age"></p><br>
+    <p style="font-size: larger;">enter your job :- <input id="job" type="text" placeholder="Enter Your job"></p><br>
+    <p style="font-size: larger;">enter your phonenumber :- <input id="phonenumber" type="number" placeholder="Enter Your phonenumber"></p><br>
+    <p style="font-size: larger;">enter your country :- <input id="country" type="text" placeholder="Enter Your contry"></p>
+
+    <button type="submit" onclick="submitForm()">Please Submit Form</button>
+    <p id="error" style="color: red;"></p>
+    
+    <hr />
+    <p>User Information</p>
+    <button onclick="getUserInfo()">Get User Data</button>
+    <p id="get_name"></p>
+    <p id="get_address"></p>
+    <p id="get_age"></p>
+    <p id="get_job"></p>
+    <p id="get_phonenumber"></p>
+    <p id="get_country"></p>
+
+</body>
+<script>
+    function submitForm() {
+        let userName = document.getElementById('userName').value
+        let address = document.getElementById('address').value
+        let age = document.getElementById('age').value
+        let job = document.getElementById('job').value
+        let phonenumber = document.getElementById('phonenumber').value
+        let country = document.getElementById('country').value
+
+        try {
+            if (userName && address && age && job && phonenumber && country) {
+                alert('Form Submitted !!')
+                document.getElementById('error').innerHTML = ''
+                let userData = {
+                    userName,
+                    address,
+                    age,
+                    job,
+                    phonenumber,
+                    country
+                }
+
+                localStorage.setItem('userInformation', JSON.stringify(userData))
+            } else {
+                throw 'please fill this form'
+            }
+        } catch (error) {
+            document.getElementById('error').innerHTML = error
+        }
+
+    }
+
+    function getUserInfo() {
+        let userdata = JSON.parse(localStorage.getItem('userInformation'))
+        document.getElementById('get_name').innerHTML = userdata.userName ?? 'Something went to wrong'
+        document.getElementById('get_address').innerHTML = userdata.address ?? 'Something went to wrong'
+        document.getElementById('get_age').innerHTML = userdata.age ?? 'Something went to wrong'
+        document.getElementById('get_job').innerHTML = userdata.job ?? 'Something went to wrong'
+        document.getElementById('get_phonenumber').innerHTML = userdata.phonenumber ?? 'Something went to wrong'
+        document.getElementById('get_country').innerHTML = userdata.country ?? 'Something went to wrong'
+
+    }
+</script>
+
+</html>
